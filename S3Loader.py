@@ -94,3 +94,11 @@ class S3Loader(BaseLoader):
         :return:
         """
         raise TemplateNotFound(u'TemplateNotFound: {0}'.format(template))
+
+    def clear(self):
+        """
+        Clear the cache
+
+        :return:
+        """
+        self.cache.clear()

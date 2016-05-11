@@ -62,3 +62,6 @@ Templates are cached by name, in text format which allows them to be easily insp
 
 By default, the S3Loader raises TemplateNotFound if the template cannot be found in either
 the cache or S3. Override on_template_not_found to change this behavior, for example it may make sense to return an error template.
+
+## Clearing the cache
+The S3Loader supports manual cache-clearing via the *clear* method. If a Flask app, this can be accessed during a request via app.jinja_loader.clear() (for example using Flask-Script or via a request handler).
