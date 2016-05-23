@@ -59,28 +59,36 @@ class S3Loader(BaseLoader):
 
     def get_source(self, env, template):
 
-        path = os.path.join(self.template_folder, template)
+        path = os.path.join(self.template_path, template)
 
-        # try to retrieve from local cache
+        # try to retrieve from the cache
         # cache returns None if not found
         result = self.cache.get(path)
 
+        # if the template was found in cache, we know that there
+        # have been no changes since Jinja compiled it last time
+        # if not, it may have changed so recompile it
+        uptodate = bool(result)
+
         if result is None:
 
-            # if not in the cache, try the backend
+            # the file was not in the cache
+            # try the backend
             # backend returns None if not found
             result = self.backend.load(path)
 
             if result is not None:
-                # template found, store the template in cache
+                # template found in the backend
+                # store the template in cache
                 self.cache.set(path, result)
 
-        # if result is still None I didnt find a template
+        # if result is still None I didn't find a template
         if result is None:
             result = self.on_template_not_found(path)
 
         # return the template
-        return result.decode(u'utf-8'), None, lambda: True
+        # if we updated the template from the backend, compile it again
+        return result.decode(u'utf-8'), None, lambda: uptodate
 
     def on_template_not_found(self, template):
         """

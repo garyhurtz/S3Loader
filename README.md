@@ -12,7 +12,7 @@ load the updates upon cache expiration (default 15 mins).
 
 ## Usage
 
-If you arent familiar with Jinja loaders, take a quick look [here](http://jinja.pocoo.org/docs/dev/api/#loaders).
+If you aren't familiar with Jinja loaders, take a quick look [here](http://jinja.pocoo.org/docs/dev/api/#loaders).
 
 The S3Loader has the following constructor:
 
@@ -48,7 +48,7 @@ If you are using Flask, you can set the loader by assigning it to the applicatio
         template_folder=u'templates'
     )
 
-In the Flask case, you are most likely converting from a FileSystemLoader (the Flask default) to the S3Loader, so you most likely have a *templates* folder (or whatever you set *template_folder* to when you set up your Flask application) on the root level of your project. Basically all you have to do is upload the templates to S3, apply the S3 loader, then load your page. You should see template_cache appear in your project, and any templates you loaded copied into it.
+In the Flask case, you are most likely converting from a FileSystemLoader (the Flask default) to the S3Loader, so you most likely have a *templates* folder (or whatever you set *template_folder* to when you set up your Flask application) on the root level of your project. Basically all you have to do is upload the templates to S3, apply the S3 loader, then load your page. You should see template_cache appear in your project, and any templates you render get copied into it.
 
 If you are using Jinja2 directly, then you can do something like this:
 
@@ -61,7 +61,7 @@ If you are using Jinja2 directly, then you can do something like this:
 Templates are cached by name, in text format which allows them to be easily inspected in debug.
 
 By default, the S3Loader raises TemplateNotFound if the template cannot be found in either
-the cache or S3. Override on_template_not_found to change this behavior, for example it may make sense to return an error template.
+the cache or S3. Override *on_template_not_found* to change this behavior, for example it may make sense to return an error template.
 
 ## Clearing the cache
 The S3Loader supports manual cache-clearing via the *clear* method. If a Flask app, this can be accessed during a request via app.jinja_loader.clear() (for example using Flask-Script or via a request handler).
