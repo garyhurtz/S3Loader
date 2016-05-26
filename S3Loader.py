@@ -1,7 +1,5 @@
 # -*- coding: UTF-8 -*- #
 
-# -*- coding: UTF-8 -*- #
-
 from jinja2 import BaseLoader, TemplateNotFound
 from backends.backends.S3RawBackend import S3RawBackend
 from backends.backends.TextCache import TextCache
@@ -59,7 +57,7 @@ class S3Loader(BaseLoader):
 
     def get_source(self, env, template):
 
-        path = os.path.join(self.template_path, template)
+        path = os.path.join(self.template_folder, template)
 
         # try to retrieve from the cache
         # cache returns None if not found
